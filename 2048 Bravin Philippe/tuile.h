@@ -9,5 +9,9 @@ private:
 
 public:
 
-	Tuile Tuile();
+	Tuile();
+
+	void Test();
+
+	~Tuile();
 };
