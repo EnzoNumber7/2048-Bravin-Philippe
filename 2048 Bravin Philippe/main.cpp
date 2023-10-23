@@ -1,6 +1,8 @@
 #include <string>
 #include <iostream>
+
 #include "tuile.h"
+#include "tab.h"
 
 using namespace std;
 
