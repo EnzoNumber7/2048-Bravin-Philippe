@@ -8,12 +8,17 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello World!\n";
-    Tuile* t = new Tuile();
+    srand(time(NULL));
 
-    t->Test();
+    Tab* tab = new Tab();
 
-    delete t;
+    tab->Create_Tiles();
+    tab->Create_Tiles();
+    tab->Create_Tiles();
 
+
+    tab->Print_Tab();
+
+    delete tab;
     return 0;
 }
