@@ -49,7 +49,6 @@ void Tab::Move_Tiles_Left()
 				if (t_valueTab[i][j-1] == 0){
 					t_tab[i][j - 1] = t_tab[i][j];
 					t_tab[i][j] = NULL;
-					//cout << t_tab[i][j - 1]->Get_Value() <<t_tab[i][j]->Get_Value() <<endl;
 					t_valueTab[i][j - 1] = t_valueTab[i][j];
 					t_valueTab[i][j] = 0;
 
@@ -65,12 +64,44 @@ void Tab::Move_Tiles_Left()
 
 void Tab::Move_Tiles_Right()
 {
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (t_valueTab[i][j] != 0) {
+				if (t_valueTab[i][j + 1] == 0) {
+					t_tab[i][j + 1] = t_tab[i][j];
+					t_tab[i][j] = NULL;
+					t_valueTab[i][j + 1] = t_valueTab[i][j];
+					t_valueTab[i][j] = 0;
 
+					Move_Tiles_Right();
+				}
+				else if (t_valueTab[i][j + 1] == t_valueTab[i][j]) {
+					Merge_Tiles(4, t_valueTab[i][j], i, j + 1);
+				}
+			}
+		}
+	}
 }
 
 void Tab::Move_Tiles_Up()
 {
+	for (int i = 1; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (t_valueTab[i][j] != 0) {
+				if (t_valueTab[i - 1][j] == 0) {
+					t_tab[i - 1][j] = t_tab[i][j];
+					t_tab[i][j] = NULL;
+					t_valueTab[i - 1][j] = t_valueTab[i][j];
+					t_valueTab[i][j] = 0;
 
+					Move_Tiles_Up();
+				}
+				else if (t_valueTab[i - 1][j] == t_valueTab[i][j]) {
+					Merge_Tiles(4, t_valueTab[i][j], i - 1, j);
+				}
+			}
+		}
+	}
 }
 
 void Tab::Move_Tiles_Down()
