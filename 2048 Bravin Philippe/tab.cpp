@@ -48,11 +48,12 @@ void Tab::Move_Tiles_Left()
 			if (t_valueTab[i][j]!=0){
 				if (t_valueTab[i][j-1] == 0){
 					t_tab[i][j - 1] = t_tab[i][j];
-					cout << t_tab[i][j - 1]->Get_Value() <<t_tab[i][j]->Get_Value() <<endl;
+					t_tab[i][j] = NULL;
+					//cout << t_tab[i][j - 1]->Get_Value() <<t_tab[i][j]->Get_Value() <<endl;
 					t_valueTab[i][j - 1] = t_valueTab[i][j];
+					t_valueTab[i][j] = 0;
 
-					Delete_Tile(i, j);
-					//Move_Tiles_Left();
+					Move_Tiles_Left();
 				}
 				else if (t_valueTab[i][j - 1] == t_valueTab[i][j]){
 					Merge_Tiles(4, t_valueTab[i][j],i,j-1);
