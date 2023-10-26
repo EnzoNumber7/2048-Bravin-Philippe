@@ -3,6 +3,7 @@
 
 #include "tuile.h"
 #include "tab.h"
+#include "testInte.cpp"
 
 #include <conio.h>
 
@@ -15,8 +16,9 @@ using namespace std;
 
 int main()
 {
-    srand(time(NULL));
+	test2();
 
+    srand(time(NULL));
     Tab* tab = new Tab();
 	tab->Create_Tiles();
 	tab->Create_Tiles();

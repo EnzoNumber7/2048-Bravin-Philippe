@@ -64,7 +64,7 @@ void Tab::Move_Tiles_Left()
 					Move_Tiles_Left();
 				}
 				else if (t_valueTab[i][j] == t_valueTab[i][j + 1] and t_tab[i][j + 1]->Get_Merge() == false){
-					t_tab[i][j - 1]->Change_Bool(true);
+					t_tab[i][j + 1]->Change_Bool(true);
 					Merge_Tiles(4, t_valueTab[i][j], i, j);
 				}
 			}
