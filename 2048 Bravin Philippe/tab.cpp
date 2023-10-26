@@ -3,17 +3,44 @@
 #include <stdlib.h>
 #include <string>
 
+#include <typeinfo>
+
 using namespace std;
 
+// ---------- CONSTRUCTEUR ---------- //
 Tab::Tab()
 {
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			t_valueTab[i][j] = 0;
+			t_tab[i][j] = NULL;
 		}
 	}
 }
+Tab::Tab(string line1, string line2, string line3, string line4)
+{
+	for (int j = 0; j < 4; j++) {
+		t_valueTab[0][j] = (int)line1[j] - '0';
+		t_tab[0][j] = new Tile((int)line1[j] - '0');
+	}
+	for (int j = 0; j < 4; j++) {
+		t_valueTab[1][j] = (int)line2[j] - '0';
+		t_tab[1][j] = new Tile((int)line2[j] - '0');
+	}
+	for (int j = 0; j < 4; j++) {
+		t_valueTab[2][j] = (int)line3[j] - '0';
+		t_tab[2][j] = new Tile((int)line3[j] - '0');
+	}
+	for (int j = 0; j < 4; j++) {
+		t_valueTab[3][j] = (int)line4[j] - '0';
+		t_tab[3][j] = new Tile((int)line4[j] - '0');
+	}
+}
+
+// ---------- METHODE ---------- //
+
 void Tab::Print_Tab()
+
 {
 	for (int i = 0; i < 4 ; i++) {
 		for (int j = 0; j < 4 ; j++) {
@@ -75,23 +102,24 @@ void Tab::Move_Tiles_Left()
 void Tab::Move_Tiles_Right()
 {
 	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 3; j++) {
-			if (t_valueTab[i][j] != 0 ) {
-				if (t_valueTab[i][j + 1] == 0) {
-					t_tab[i][j + 1] = t_tab[i][j];
-					t_tab[i][j] = NULL;
-					t_valueTab[i][j + 1] = t_valueTab[i][j];
-					t_valueTab[i][j] = 0;
+		for (int j = 3; j >= 1; j--) {
+			if (t_valueTab[i][j - 1] != 0 ) {
+				if (t_valueTab[i][j] == 0) {
+					t_tab[i][j] = t_tab[i][j - 1];
+					t_tab[i][j - 1] = NULL;
+					t_valueTab[i][j] = t_valueTab[i][j - 1];
+					t_valueTab[i][j - 1] = 0;
 
 					Move_Tiles_Right();
 				}
-				else if (t_valueTab[i][j] == t_valueTab[i][j + 1] and t_tab[i][j]->Get_Merge() == false) {
-					t_tab[i][j + 1]->Change_Bool(true);
-					Merge_Tiles(6, t_valueTab[i][j], i, j + 1);
+				else if (t_valueTab[i][j] == t_valueTab[i][j - 1] and t_tab[i][j]->Get_Merge() == false) {
+					t_tab[i][j]->Change_Bool(true);
+					Merge_Tiles(6, t_valueTab[i][j], i, j);
 				}
 			}
 		}
 	}
+
 }
 
 void Tab::Move_Tiles_Up()
@@ -118,20 +146,20 @@ void Tab::Move_Tiles_Up()
 
 void Tab::Move_Tiles_Down()
 {
-	for (int i = 0; i < 3; i++) {
+	for (int i = 3; i >= 1; i--) {
 		for (int j = 0; j < 4; j++) {
-			if (t_valueTab[i][j] != 0 ) {
-				if (t_valueTab[i + 1][j] == 0) {
-					t_tab[i + 1][j] = t_tab[i][j];
-					t_tab[i][j] = NULL;
-					t_valueTab[i + 1][j] = t_valueTab[i][j];
-					t_valueTab[i][j] = 0;
+			if (t_valueTab[i - 1][j] != 0 ) {
+				if (t_valueTab[i][j] == 0) {
+					t_tab[i][j] = t_tab[i - 1][j];
+					t_tab[i - 1][j] = NULL;
+					t_valueTab[i][j] = t_valueTab[i - 1][j];
+					t_valueTab[i - 1][j] = 0;
 
 					Move_Tiles_Down();
 				}
-				else if (t_valueTab[i + 1][j] == t_valueTab[i][j] and t_tab[i][j]->Get_Merge() == false) {
-					t_tab[i + 1][j]->Change_Bool(true);
-					Merge_Tiles(2, t_valueTab[i][j], i + 1, j);
+				else if (t_valueTab[i - 1][j] == t_valueTab[i][j] and t_tab[i - 1][j]->Get_Merge() == false) {
+					t_tab[i][j]->Change_Bool(true);
+					Merge_Tiles(2, t_valueTab[i][j], i, j);
 				}
 			}
 		}
@@ -173,21 +201,7 @@ void Tab::Reset_Bool()
 	}
 }
 
-void Tab::Delete_Tiles()
-{
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			if (t_valueTab[i][j] != 0) {
-				delete(t_tab[i][j]);
-			}
-		}
-	}
-}
-void Tab::Delete_Tile(int pos_X,int pos_Y)
-{
-	delete(t_tab[pos_X][pos_Y]);
-	t_valueTab[pos_X][pos_Y] = 0;
-}
+
 bool Tab::Win()
 {
 	for (int i = 0; i < 4; i++) {
@@ -251,6 +265,40 @@ bool Tab::Loose()
 	}
 	return (true);
 }
+
+void Tab::Delete_Tile(int pos_X, int pos_Y)
+{
+	delete(t_tab[pos_X][pos_Y]);
+	t_valueTab[pos_X][pos_Y] = 0;
+}
+
+// ---------- TEST ---------- //
+
+bool Tab::CompareTab(Tab* resultTab)
+{
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (resultTab->t_valueTab[i][j] != t_valueTab[i][j]) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+// ---------- DESTRUCTEUR ---------- //
+
+void Tab::Delete_Tiles()
+{
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			if (t_valueTab[i][j] != 0) {
+				delete(t_tab[i][j]);
+			}
+		}
+	}
+}
+
 Tab::~Tab()
 {
 	Delete_Tiles();

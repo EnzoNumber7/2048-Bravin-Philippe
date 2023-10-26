@@ -1,6 +1,7 @@
 #pragma once
 #include "tuile.h"
 #include <string>
+using namespace std;
 
 class Tab : Tile
 {
@@ -11,6 +12,8 @@ private:
 public:
 
 	Tab();
+	Tab(string line1, string line2, string line3, string line4);
+
 	void Print_Tab();
 	void Create_Tiles(int pos_X = -1, int pos_Y = -1, int value = 2);
 	void Move_Tiles_Left();
@@ -23,6 +26,8 @@ public:
 	void Delete_Tile(int pos_X,int pos_Y);
 	bool Win();
 	bool Loose();
+
+	bool CompareTab( Tab* resultTab);
 
 	~Tab();
 };

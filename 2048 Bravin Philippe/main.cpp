@@ -3,7 +3,7 @@
 
 #include "tuile.h"
 #include "tab.h"
-#include "testInte.cpp"
+#include "test.h"
 
 #include <conio.h>
 
@@ -16,7 +16,8 @@ using namespace std;
 
 int main()
 {
-	test2();
+	Merge_Prio();
+	Double_Merge();
 
     srand(time(NULL));
     Tab* tab = new Tab();
