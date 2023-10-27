@@ -16,10 +16,10 @@ public:
 
 	void Print_Tab();
 	void Create_Tiles(int pos_X = -1, int pos_Y = -1, int value = 2);
-	void Move_Tiles_Left();
-	void Move_Tiles_Right();
-	void Move_Tiles_Up();
-	void Move_Tiles_Down();
+	int Move_Tiles_Left();
+	int Move_Tiles_Right();
+	int Move_Tiles_Up();
+	int Move_Tiles_Down();
 	void Merge_Tiles(int direction,int value, int pos_X, int pos_Y);
 	void Reset_Bool();
 	void Delete_Tiles();

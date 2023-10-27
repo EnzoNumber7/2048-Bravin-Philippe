@@ -4,4 +4,6 @@ void Merge_Prio();
 
 void Double_Merge();
 
-void test3();
+void No_Move();
+
+void test4();
