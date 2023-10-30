@@ -1,9 +1,11 @@
 #pragma once
 
-void Merge_Prio();
+int Merge_Prio();
 
-void Double_Merge();
+int Double_Merge();
 
-void No_Move();
+int No_Move();
 
-void test4();
+int Test_Win();
+
+int Test_Lose();

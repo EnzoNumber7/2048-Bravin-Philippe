@@ -16,10 +16,11 @@ using namespace std;
 
 int main()
 {
-	Merge_Prio();
-	Double_Merge();
-	//No_Move();
-	test4();
+	if (not Merge_Prio()) { return 0; }
+	if (not Double_Merge()) { return 0; }
+	if (not No_Move()) { return 0; }
+	if (not Test_Win()) { return 0; }
+	if (not Test_Lose()) { return 0; }
 
     srand(time(NULL));
     Tab* tab = new Tab();
