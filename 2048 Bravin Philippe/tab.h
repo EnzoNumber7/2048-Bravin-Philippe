@@ -15,7 +15,7 @@ public:
 	Tab(string line1, string line2, string line3, string line4);
 
 	void Print_Tab();
-	void Create_Tiles(int pos_X = -1, int pos_Y = -1, int value = 2);
+	void Create_Tiles();
 	int Move_Tiles_Left();
 	int Move_Tiles_Right();
 	int Move_Tiles_Up();

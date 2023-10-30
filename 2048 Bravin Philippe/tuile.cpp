@@ -25,10 +25,12 @@ int Tile::Get_Value()
 {
 	return (t_value);
 }
+
 bool Tile::Get_Merge()
 {
 	return(t_merge);
 }
+
 void Tile::Change_Value(int New_value)
 {
 	t_value = New_value;

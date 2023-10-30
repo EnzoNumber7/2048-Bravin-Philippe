@@ -16,6 +16,7 @@ using namespace std;
 
 int main()
 {
+	// Lancement des tests, si echec alors on arrete le programme
 	if (not Merge_Prio()) { return 0; }
 	if (not Double_Merge()) { return 0; }
 	if (not No_Move()) { return 0; }
@@ -27,18 +28,17 @@ int main()
 	tab->Create_Tiles();
 	tab->Create_Tiles();
     tab->Print_Tab();
-	bool badKey = true;
-	while (badKey)
+	bool run = true;
+	while (run)
 	{
-		tab->Loose();
 		if (tab->Win()){
-			cout << "ggwp ez clap winner winner chicken dinner";
-			badKey = false;
+			cout << "Bravo, vous avez gagner";
+			run = false;
 			break;
 		}
 		if (tab->Loose()){
-			cout << "tu pues, t'as perdu au 2048";
-			badKey = false;
+			cout << "Vous avez perdu";
+			run = false;
 			break;
 		}
 		int c = 0;
@@ -78,7 +78,7 @@ int main()
 			}
 			break;
 		default:
-			badKey = true;
+			run = true;
 			break;
 		}
 	}
