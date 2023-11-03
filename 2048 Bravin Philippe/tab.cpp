@@ -97,6 +97,7 @@ void Tab::Print_Tab()
 	}
 	cout << endl;
 }
+
 void Tab::Create_Tiles()
 {
 	// Création d'une tuile dans une case libre aléatoire
@@ -111,6 +112,7 @@ void Tab::Create_Tiles()
 		t_valueTab[X][Y] = t_tab[X][Y]->Get_Value();
 	}	
 }
+
 int Tab::Move_Tiles_Left()
 {
 	int nb_move = 0;
@@ -151,7 +153,7 @@ int Tab::Move_Tiles_Right()
 					nb_move += 1;
 					return Move_Tiles_Right() + nb_move;
 				}
-				else if (t_valueTab[i][j] == t_valueTab[i][j - 1] and t_tab[i][j]->Get_Merge() == false and t_tab[i][j - 1]->Get_Merge() == false) {
+				if (t_valueTab[i][j] == t_valueTab[i][j - 1] and t_tab[i][j]->Get_Merge() == false and t_tab[i][j - 1]->Get_Merge() == false) {
 					nb_move += 1;
 					t_tab[i][j]->Change_Bool(true);
 					Merge_Tiles(6, t_valueTab[i][j], i, j);
@@ -242,7 +244,7 @@ void Tab::Merge_Tiles(int direction, int value, int pos_X, int pos_Y)
 void Tab::Reset_Bool()
 {
 	for (int i = 0; i < 4; i++) {
-		for (int j = 1; j < 4; j++) {
+		for (int j = 0; j < 4; j++) {
 			if (t_valueTab[i][j] != 0) {
 				t_tab[i][j]->Change_Bool(false);
 			}
